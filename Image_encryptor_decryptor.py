@@ -17,6 +17,8 @@ def getImage():
 
 def encrypt():
     image = getImage()
+    if image.mode != 'RGB':
+        image = image.convert('RGB')
     imageCopy =  image.copy()
     clear()
     print("====================================")
@@ -28,16 +30,20 @@ def encrypt():
             key = int(input("Enter Key in Int: "))
         except:
             print("[ERROR] Key must be in int")
+            
+
     
     pixel_map = image.load()
     pixel_mapCopy = imageCopy.load()
     width, height = image.size
+    
+
             
 
     #flip color blue with red
     for i in range(0, width):
         for j in range(0, height):
-            r, g, b, p = image.getpixel((i, j))
+            r, g, b = image.getpixel((i, j))
             b = (b ^ key) % 256
             r = (r ^ key) % 256
             g = (g ^ key) % 256
@@ -67,6 +73,9 @@ def encrypt():
 
 def decrypt():
     image = getImage()
+    if image.mode != 'RGB':
+        image = image.convert('RGB')
+        
     imageCopy =  image.copy()
     clear()
     print("====================================")
@@ -88,7 +97,7 @@ def decrypt():
     #flip color blue with red
     for i in range(0, width):
         for j in range(0, height):
-            r, g, b, p = image.getpixel((i, j))
+            r, g, b= image.getpixel((i, j))
     
             b = (b ^ key) % 256
             r = (r ^ key) % 256
